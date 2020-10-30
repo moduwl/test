@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/swiper.css"/>
+  </head>
+  <body>
+     
+     <section class="aui-content aui-margin-5" >
+         <div class="aui-row-padded" id="channeldetails">
+		 <input type="hidden" value="10" id="nextrow" />
+           <ul id="videolist">
+             
+           </ul>
+         </div>
+        
+     </section>
+    
+  </body>
+  <script type="text/x-dot-template" id="shipin">
+		{{~ it : value : index }}
+				  <li onclick="openPlayer('{{= value. url }}','{{= value. title }}')" >
+					<img alt="{{= value. title }}" src="{{= value. img }}">
+					
+					<i>{{= value. title }}</i>
+              </li>
+		{{~}}
+	</script>
+  <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js" ></script>
+  <script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript">
+   var api_url = localStorage.getItem('api_url');
+      apiready = function(){
+          rebo()
+		  
+      };
+	  function rebo(){
+	   var videolist = $api.byId('videolist');
+	   var shipin = $api.byId('shipin');
+			api.ajax({
+				  url: api_url+'/App/App/so.html',
+				  method: 'get',
+				   data: {
+					values: {
+							keyword: api.pageParam.keyword,
+							}
+					} 
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret))
+					if (ret.code == 1) {
+					var pagefn = doT.template(shipin.text);
+					videolist.innerHTML = pagefn(ret.msg);
+					}else if (ret.code == 0){
+					api.toast({
+						msg: ret.msg,
+						duration: 2000
+					});
+					}
+				  } else {
+					alert( '视频加载失败！' );
+					api.hideProgress();
+				}      
+			  });
+			}
+			
+			function rebos(){
+	  var videolist = $api.byId('videolist');
+	   var shipin = $api.byId('shipin');
+			api.ajax({
+				  url: api_url+'/App/App/shipins.html',
+				  method: 'get',
+				  data: {
+					values: {  
+							type: api.pageParam.title,
+							nextrow: nextrow,
+							}
+					}  
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret)) 
+					if (ret.code == 1) {
+					var pagefn = doT.template(shipin.text);
+					videolist.innerHTML = pagefn(ret.msg);
+					$("#nextrow").val(parseInt(nextrow)+10);
+					}else if (ret.code == 0){
+					api.toast({
+						msg: ret.msg,
+						duration: 2000
+					});
+					}
+				  } else {
+					alert( '视频加载失败！' );
+					api.hideProgress();
+				}      
+			  });
+	}
+  </script>
+  </html>

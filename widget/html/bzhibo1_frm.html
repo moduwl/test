@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css1/aui.css" />
+    <link rel="stylesheet" href="../css1/base.css">
+    <link rel="stylesheet" type="text/css" href="../css1/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <style>
+       html,body{background-color: #f2f1f1;  }
+    }
+    </style>
+</head>   
+<body>
+  <section class="myui-bg-live">
+  <div class="live-top">
+    <div class="live-top-l">
+      <img id="pic" src="">
+    </div>
+    <div class="live-top-r">
+      <div class="live-top-r-t">
+        <span id="title" class="live-ptname" style="color:#fff600">直播</span>
+        <span class="live-pt">直播平台</span>
+        <div  class="aui-label-list aui-label aui-label-danger aui-iconfont aui-icon-my">
+          当前在线人数:
+          <i id="num" ></i>
+          <span >人</span>
+
+        </div>
+      </div>
+      <div class="live-top-r-b">
+        直播视频与图片均来源于第三方平台，与本app无关，不要相信直播间任何广告，避免上当受骗。
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="br"> </div>
+  <div class="wrap">
+
+    <div class="game-page">
+
+    <div class="zhubo-list-wrap" id="liveList">
+
+      <ul class="clearfix" id="div_list">
+	  
+	  <li v-for="v in list"  @click="openWin(v.address,v.title,v.img)"> 
+		 <div class="video-mask-box"> 
+		   <img :src="v.img" alt="" class="game-pic" style="height:350px">
+		  </div>
+		   <div  class="aui-badge">直播中</div> 
+		  <div class="til">{{v.title}}</div> 
+	 </li>
+	  
+      </ul>
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js" ></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+ var api_url = localStorage.getItem('api_url');
+ 
+ 
+  apiready = function(){
+    var title = $api.byId('title');
+    var pic = $api.byId('pic');
+
+    pic.src = api.pageParam.xinimg;
+    title.innerHTML = api.pageParam.title;
+	getList(); 
+
+  }
+
+
+
+  
+
+
+ function getList(){
+ var liveList = new Vue({
+		  el: '#liveList',
+		  data: {list: []},
+		  mounted: function(){
+			  api.ajax({
+			  url: api_url+'/zhibo.php',
+			  method: 'get',
+			  data: {
+					values: {
+						lx: 'hqzb2',
+						id: api.pageParam.add,
+					}
+				}
+			  },function(ret, err){
+				  if (ret) {
+					//console.log(JSON.stringify(ret.pingtai))
+					 liveList.list = ret;
+				  }     
+			  });
+		  }
+	  });
+  }
+ function  openWin(url,title,img){
+		 var delay = 0;
+		 if(api.systemType != 'ios'){
+			 delay = 300;
+		 }
+		 api.openWin({
+			 name: 'live_win',
+			 url: 'live_win.html',
+			 bounces:false,
+			 delay: delay,
+			 slidBackEnabled:true,
+			 vScrollBarEnabled:false,
+			  pageParam:{url:url,title:title,img:img},
+			
+		 });
+    }
+//////////////////////   打开直播间  方法        E //////////////////////
+
+
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/swiper.css"/>
+  </head>
+  <body>
+     
+     <section class="aui-content aui-margin-5" id="channeldetails">
+         <div class="aui-row-padded" >
+		 <input type="hidden" value="0" id="nextrow" />
+           <ul id="videolist" >
+              <li  v-for="v in it" @click="openPlayer(v.url,v.title,v.img)">
+					<img :src="v.img">
+					
+					<i>{{v.title}}</i>
+              </li>
+           </ul>
+         </div>
+        
+     </section>
+    
+  </body>
+
+
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/echo.js"></script>
+  <script type="text/javascript">
+   var api_url = localStorage.getItem('api_url');
+      apiready = function(){
+          rebo()
+		   
+      };
+	  function rebo(){
+	   var channeldetails = new Vue({
+              el: '#channeldetails',
+              data: {
+                  it: [],
+                  offset: 0,
+                  loader: '正在加载更多...'
+              },
+              mounted: function(){
+                  this.add(); //初始化
+                  loadMore(function(){channeldetails.add()}); //下拉加载
+              },
+              updated: function(){
+                  echo.init({offset: 500, throttle: 0}); //图片懒加载
+              },
+              methods: {
+                  add: function(){
+                   var nextrow=$("#nextrow").val(); 
+                       api.ajax({
+							  url: api_url+'/App/App/shipins.html',
+							  method: 'get',
+							   data: {
+											values: {  
+												type: api.pageParam.title,
+												nextrow: nextrow,
+												}
+										}
+								  },function(ret, err){
+									  if (ret) {
+										//console.log(JSON.stringify(ret))
+										
+										if (ret.code == 1) {
+										channeldetails.offset += nextrow;
+										channeldetails.it = channeldetails.it.concat(ret.msg);
+										$("#nextrow").val(parseInt(nextrow)+10);
+											
+									}else if (ret.code == 0){
+									api.toast({
+										msg: ret.msg,
+										duration: 2000
+									});
+									}
+
+							 }      
+							});
+						  },
+					  }
+				  });
+			}
+			
+  </script>
+  </html>

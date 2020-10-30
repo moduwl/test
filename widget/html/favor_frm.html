@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>收藏</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+  </head>
+  <body>
+      <section class="aui-content aui-margin-5" id="videolist">
+	  <input type="hidden" value="10" id="nextrow" />
+          <div class="aui-row-padded" id="jilu">
+              <div  class="aui-col-xs-6" >
+                  <!-- <div class="aui-card-list aui-border-t aui-border-b aui-margin-b-5"> -->
+                      <!-- <div class="aui-card-list-content"> -->
+                          <!-- <img src="v.picurl" /> -->
+                      <!-- </div> -->
+                      <!-- <div class="aui-card-list-header"> -->
+                          <!-- <div class="aui-ellipsis-2" >11111</div> -->
+                      <!-- </div> -->
+                  <!-- </div> -->
+              </div>
+
+          </div>
+          <div class="aui-card-list-footer aui-text-center" style="clear:both" v-text="loader"></div>
+      </section>
+  </body>
+   <script type="text/x-dot-template" id="jilux">
+		{{~ it : value : index }}
+				 
+				 <div  class="aui-col-xs-6" onclick="openPlayer('{{= value. url }}','{{= value. title }}')" >
+                  <div class="aui-card-list aui-border-t aui-border-b aui-margin-b-5">
+                      <div class="aui-card-list-content">
+                          <img src="{{= value. img }}" />
+                      </div>
+                      <div class="aui-card-list-header">
+                          <div class="aui-ellipsis-2" >{{= value. title }}</div>
+                      </div>
+                  </div>
+              </div>
+		{{~}}
+	</script>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/doT.js"></script>
+  <script type="text/javascript" src="../script/common.js"></script>
+  
+  <script type="text/javascript">
+   var api_url = localStorage.getItem('api_url');
+      apiready = function(){
+          api.parseTapmode();
+         jilu();
+		 api.addEventListener({ 
+			name:'scrolltobottom',  
+			extra:{      
+			threshold:0    
+			//设置距离底部多少距离时触发，默认值为0，数字类型  
+			}}, function(ret, err){     
+
+			jilus();
+			});
+      }
+	   function jilu(){
+	   var jilu = $api.byId('jilu');
+	   var jilux = $api.byId('jilux');
+			api.ajax({
+				  url: api_url+'/App/App/jilu.html',
+				  method: 'get',
+				   data: {
+					values: {
+							uid: localStorage.getItem('user_id'),
+							}
+					} 
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret))
+					if (ret.code == 1) {
+					var pagefn = doT.template(jilux.text);
+					jilu.innerHTML = pagefn(ret.msg);
+					}else if (ret.code == 0){
+					api.toast({
+						msg: ret.msg,
+						duration: 2000
+					});
+					}
+				  } else {
+					alert( '视频加载失败！' );
+					api.hideProgress();
+				}      
+			  });
+			}
+			function jilus(){
+	   var jilu = $api.byId('jilu');
+	   var jilux = $api.byId('jilux');
+	   var nextrow=$("#nextrow").val(); 
+			api.ajax({
+				  url: api_url+'/App/App/jilus.html',
+				  method: 'get',
+				   data: {
+					values: {
+							uid: localStorage.getItem('user_id'),
+							nextrow: nextrow,
+							}
+					} 
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret))
+					if (ret.code == 1) {
+					var pagefn = doT.template(jilux.text);
+					jilu.innerHTML = pagefn(ret.msg);
+					$("#nextrow").val(parseInt(nextrow)+10);
+					}else if (ret.code == 0){
+					api.toast({
+						msg: ret.msg,
+						duration: 2000
+					});
+					}
+				  } else {
+					alert( '视频加载失败！' );
+					api.hideProgress();
+				}      
+			  });
+			}
+  </script>
+  </html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/swiper.css"/>
+
+  </head>
+  <body style="background-color: #Fdfdfd;margin:0 0;padding:0 0">
+  <div id="topAnchor"></div>
+  <a href="javascript:window.location.reload();" style="width: 3rem;height: 3rem;position: fixed;bottom: 2rem;right: 0.5rem;z-index: 9999;background: url(../image/sx.png) no-repeat 0px 0px;" ></a>
+  <section class="aui-content aui-margin-5" id="videolist">
+        <div class="aui-row-padded">
+            <div>
+
+             
+
+                <div id="faxian">
+                    <div class="aui-col-xs-12">
+                        <div class="aui-card-list  aui-margin-b-5 aui-border-t aui-border-b" style="background-color:#FFFFFF;">
+                            <div class="aui-card-list-content"  style="height:10rem;background-size:cover;">
+                                <div style="width:100%;height:100%;background-color:rgba(0,0,0,0.2);display: flex;justify-content: center;align-items: center">
+
+                                    <img src="../image/paly.png" alt="" style="width:15%;height:auto;"/>
+                                </div>
+                            </div>
+                            <div class="aui-card-list-header">
+                                <div class="aui-ellipsis-2" style="color:#999999;" ></div>
+                                <div class="aui-card-list-footer" ></div>
+                            </div>
+                        </div>
+                    </div>
+					
+                </div>
+				
+            </div>
+        </div>
+        <div class="aui-card-list-footer aui-text-center" style="clear:both" v-text="loader"></div>
+    </section>
+  </body>
+  <script type="text/x-dot-template" id="faxian1">
+		{{~ it : value : index }}
+				 
+				 <div class="aui-col-xs-12" onclick="openPlayer('{{= value. url }}','{{= value. title }}','{{= value. img }}')"  >
+                        <div class="aui-card-list  aui-margin-b-5 aui-border-t aui-border-b" style="background-color:#FFFFFF;">
+                            <div class="aui-card-list-content"  style="height:10rem;background-size:cover;background-Image:url({{= value. img }})">
+                                <div style="width:100%;height:100%;background-color:rgba(0,0,0,0.2);display: flex;justify-content: center;align-items: center">
+
+                                    <img src="../image/paly.png" alt="" style="width:15%;height:auto;"/>
+                                </div>
+                            </div>
+                            <div class="aui-card-list-header">
+                                <div class="aui-ellipsis-2" style="color:#999999;" >{{= value. title }}</div>
+                                <div class="aui-card-list-footer" >{{= value. shijian }}</div>
+                            </div>
+                        </div>
+                    </div>
+		{{~}}
+	</script>  
+  <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript">
+   var api_url = localStorage.getItem('api_url');
+      apiready = function(){
+			api.parseTapmode();
+			get();
+         api.setCustomRefreshHeaderInfo({
+              bgColor : '#fff',
+          }, function() {
+              //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+			get();	
+              setTimeout(function(){
+					api.refreshHeaderLoadDone()
+              }, 2000);
+          });
+      }
+	   function get(){
+	   var faxian = $api.byId('faxian');
+	   var faxian1 = $api.byId('faxian1');
+			api.ajax({
+				  url: api_url+'/App/App/faxian.html',
+				  method: 'get',
+			  },function(ret, err){
+					limit=10;
+				  if (ret) {
+					//alert(JSON.stringify(ret))
+					var pagefn = doT.template(faxian1.text);
+					faxian.innerHTML = pagefn(ret);
+					api.addEventListener({ 
+						name:'scrolltobottom',  
+						extra:{      
+						threshold:0    
+						//设置距离底部多少距离时触发，默认值为0，数字类型  
+						
+						}}, function(ret, err){     
+						api.toast({
+							msg: '已到底部',
+							duration: 1000,
+							location: 'middle'
+						})
+					});
+				  }     
+			  });
+			}
+  </script>
+  </html>

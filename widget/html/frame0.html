@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/swiper.css"/>
+	  <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/auislide.css" />
+	  <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+	  <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+      <style>
+
+     
+#notice_active{
+    float: left;
+    width: 80%;
+    height: 1.5rem;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+	font-size:14px;
+	color:black;
+}
+.notice_active_ch{
+	list-style-type: none;
+    line-height: 1.5rem;
+    overflow: hidden;
+}
+
+    </style>
+  </head>
+  <body style="background-color: #323232;height:auto;">
+  
+ 
+  
+  
+      <section id="swiper" class="swiper-container">
+        
+		  
+		  <div id="aui-slide">
+			<div class="aui-slide-wrap" >
+			  <div id="slidebox" class="aui-slide-wrap">
+			  </div>
+			  <div class="aui-slide-page-wrap"><!--分页容器--></div>
+			</div>
+		</div>
+		  
+		  
+		  
+      </section>
+      <section id="notice" class="aui-content aui-bg-index aui-margin-b-10">
+         <div class="gonggao" id="gonggao">
+                <div class="list-title-l">
+                  <i class="aui-iconfont aui-icon-notificationfill aui-text-index aui-margin-r-10 aui-font-size-20"></i>
+                </div>
+                <div class="gonggao-r" id="notice_active">
+				<ul id="gong">
+				<li class="notice_active_ch" >
+                  <span id="gonggao"class="aui-font-size-12 aui-text-index" style="color: #fff;font-size: 0.65rem;margin-left: 5px;">全网会员视频任性看1</span>
+				  
+				  </li>
+				  <li class="notice_active_ch">
+                  <span id="gonggao"class="aui-font-size-12 aui-text-index" style="color: #fff;font-size: 0.65rem;margin-left:5px;">全网会员视频任性看2</span>
+				  
+				  </li>
+				  <li class="notice_active_ch">
+                  <span id="gonggao"class="aui-font-size-12 aui-text-index" style="ccolor: #fff;font-size: 0.65rem;margin-left:5px;">全网会员视频任性看3</span>
+				  
+				  </li>
+				  </ul>
+                </div>
+              </div>
+      </section>
+
+      <section class="aui-content aui-margin-5" id="channellist">
+        <div class="main">
+          <div class="title">
+            <span>热门频道</span>
+            <span @click="openWin('all_win', {title:'更多'})">更多></span> 
+          </div>
+            <ul class="liebiao" >
+              <li v-for="v in list" @click="openWin('list_win', {title:v.title})">
+					<img :alt="v.title" :src="v.picname">
+					<i>{{ v.title }}</i>
+              </li>
+            </ul>
+        </div>
+      </section>
+
+      <section class="aui-content aui-margin-5" id="channeldetails">
+        <div >
+          <div class="title">
+            <span>最新视频</span>
+            <!-- <span>更多></span> -->
+          </div>
+            <ul>
+			   <li v-for="v in list" @click="openPlayer(v.url,v.title,v.img)">
+					<img :alt="v.title" :src="v.img">
+					<i>{{v.title}}</i>
+              </li>
+            </ul>
+        </div>
+      </section>
+  </body>
+    
+  
+  
+  <script type="text/x-dot-template" id="template">
+		{{~ it : value : index }}
+				 <div class="aui-slide-node bg-dark" tapmode onclick="openApp('{{= value. link }}')">
+					<img src="{{= value. picname }}" />
+				</div>
+		{{~}}
+	</script>
+	<script type="text/x-dot-template" id="notice1">
+		{{~ it : value : index }}
+				<li class="notice_active_ch" >
+                  <span class="aui-font-size-12 aui-text-index" style="color: #fff;font-size: 0.65rem;margin-left: 5px;">{{= value. neirong }}</span>
+				</li>
+		{{~}}
+	</script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+	function timer(opj){
+		$(opj).find('ul').animate({
+			marginTop : "0rem"  
+			},500,function(){  
+			$(this).css({marginTop : "0rem"}).find("li:first").appendTo(this);  
+		})  
+	}
+	$(function(){ 
+		var num = $('#notice_active').find('li').length;
+		if(num > 1){
+		   var time=setInterval('timer("#notice_active")',5000);
+			$('.gg_more a').mousemove(function(){
+				clearInterval(time);
+			}).mouseout(function(){
+				time = setInterval('timer("#notice_active")',5000);
+			}); 
+		}
+		
+		$(".news_ck").click(function(){
+			location.href = $("#notice_active .notice_active_ch").children(":input").val();
+		})
+	});
+</script>
+    <script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/doT.js"></script>
+	<script type="text/javascript" src="../script/auislide.js"></script>
+	<script type="text/javascript" src="../script/vue.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript">
+   var api_url = localStorage.getItem('api_url');
+      apiready = function(){
+
+		lunbo();
+		pindao();
+		rebo();
+		notice();
+		 api.parseTapmode();
+   api.setCustomRefreshHeaderInfo({
+              bgColor : '#fff',
+          }, function() {
+              //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+		lunbo();
+		notice();		
+              setTimeout(function(){
+					api.refreshHeaderLoadDone()
+              }, 2000);
+          });
+      };
+	  //轮播开始//
+	  function lunbo(){
+	   var bannerid = $api.byId('slidebox');
+		var template = $api.byId('template');
+			api.ajax({
+				  url: api_url+'/App/App/lunbo.html',
+				  method: 'get',
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret.slun))
+					var pagefn = doT.template(template.text);
+					bannerid.innerHTML = pagefn(ret.slun);
+					banNer();
+				  }      
+			  });
+			}
+	  //轮播结束//
+	  //公告//
+	  //频道//
+	  
+	  function pindao(){
+			  var channellist = new Vue({
+				  el: '#channellist',
+				  data: {list: []},
+				  mounted: function(){
+					  api.ajax({
+					  url: api_url+'/App/App/pindao.html',
+					  method: 'get',
+				  },function(ret, err){
+					  if (ret) {
+						//console.log(JSON.stringify(ret))
+						 channellist.list = ret;
+					  }     
+				  });
+				  }
+			  });
+			}
+	  //热播视频//
+	  function rebo(){
+			   var channeldetails = new Vue({
+				  el: '#channeldetails',
+				  data: {list: []},
+				  mounted: function(){
+					  api.ajax({
+					  url: api_url+'/App/App/rebo.html',
+					  method: 'get',
+				  },function(ret, err){
+					  if (ret) {
+						//console.log(JSON.stringify(ret))
+						 channeldetails.list = ret;
+					  }     
+				  });
+				 }
+			  });
+			}
+	   //公告//
+	  function notice(){
+	   var gong = $api.byId('gong');
+		var notice1 = $api.byId('notice1');
+			api.ajax({
+				  url: api_url+'/App/App/notice.html',
+				  method: 'get',
+			  },function(ret, err){
+				  if (ret) {
+					//alert(JSON.stringify(ret))
+					var pagefn = doT.template(notice1.text);
+					gong.innerHTML = pagefn(ret);
+				
+				  }     
+			  });
+			}
+
+	  
+  </script>
+  </html>

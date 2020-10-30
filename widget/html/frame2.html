@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>云API</title>
+  <link rel="stylesheet" type="text/css" href="../css1/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css1/aui.css"/>
+	<link rel="stylesheet" type="text/css" href="../css1/auislide.css" />
+	  <link rel="stylesheet" type="text/css" href="../css1/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css1/style.css" />
+		<link rel="stylesheet" href="../css1/base.css">
+		<link rel="stylesheet" href="../css1/zhibo.css">
+		
+
+    <style>
+
+  
+html,
+			body {
+			background-color:#fff;
+			}
+			
+			.empty {
+				text-align: center;
+				padding: 120px 0;
+			}
+			
+			.bd-t::after {
+				content: " ";
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 1px;
+				background-image: linear-gradient(0deg, transparent 50%, #d1d1d1 50%);
+			}
+			
+			.juzhong {
+				text-align: center;
+			}
+			
+			.yuo {
+				text-align: right;
+			}
+  
+#notice_active{
+    float: left;
+    width: 80%;
+    height: 1.5rem;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+	font-size:14px;
+	color:black;
+}
+.notice_active_ch{
+	list-style-type: none;
+    line-height: 1.5rem;
+    overflow: hidden;
+}
+
+          /*新加空提示信息*/
+
+          .m-noRecord {
+            padding: .395rem 0 0;
+            text-align: center;
+        }
+
+        .m-noRecord .c-icon-noRecord {
+            background: url(../image/app/Loading2.gif) no-repeat;
+            background-size: cover;
+          width: 15rem;
+          height: 10rem;
+          /* margin: .485rem auto 0; */
+          margin: 0 auto;
+        }
+        .m-noRecord .c-info {
+            background: linear-gradient(to right, #ffd74c, #c7752e);
+            -webkit-background-clip: text;
+            color: transparent;
+            /* color: #cecfce;  */
+            line-height: 4rem;
+            padding: .25rem 0;
+            font-size: .8rem;
+        }
+
+		.empty{ text-align: center; padding: 120px 0; }
+        .aui-row img {
+		border-radius: 0.5rem;
+		width: 5rem;
+		height: 5rem;
+		margin: 0 auto;
+		box-shadow: 0.01rem 0.1rem 0.2rem rgba(99, 99, 99, 0.29);
+		}
+ header {
+            height: 25px;
+            width: 100%;
+            text-align: center;
+            background-color: #fff;
+            color: #fff;
+            line-height: 44px;
+            font-size: 20px;
+        }
+    </style>
+	 <style>
+       .aui-nav-list-box ul li a {
+    color: #8B8386;
+}
+.guanggao ul li a {   
+    color: #8B8386;
+}
+
+ .guanggao{
+	margin-top:10px;
+	
+}
+.guanggao ul{
+		display: -webkit-box;	display: -webkit-flex;	display: flex;
+	}
+
+.guanggao ul li {
+	float: left;
+    color: #000;
+    cursor: pointer;
+    line-height: 30px;
+	flex: 1;
+    text-align: center;
+    font-size: 14px;
+
+
+}
+
+
+.aui-nav-list-box ul .aui-current {
+    color: #282828;
+    border-bottom: solid 2px #282828;
+    font-weight: bold;
+}
+
+.aui-nav-list-box ul .aui-current a {
+    color: #282828;
+}
+.aui-nav-list-item {
+    display: none;
+}
+.slidebox{
+	height:200px;
+}
+.guanggao img {
+    border-radius: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 auto;
+}
+
+
+
+.aui-nav-list-box ul li a {
+    color: #8B8386;
+}
+
+.aui-nav-list-box ul{
+	display: -webkit-box;	display: -webkit-flex;	display: flex;
+	}
+
+.aui-nav-list-box ul li {
+	float: left;
+    color: #000;
+    cursor: pointer;
+    line-height: 40px;
+	flex: 1;
+    text-align: center;
+    font-size: 18px;
+
+}
+
+.aui-nav-list-box ul .aui-current {
+    color: #dcb481 !important;
+    border-bottom: solid 2px #dcb481 !important;
+    font-weight: bold;
+}
+
+.aui-nav-list-box ul .aui-current a {
+    color: #dcb481 !important;
+}
+.aui-nav-list-item {
+    display: none;
+}
+.slidebox{
+	height:200px;
+}
+  
+
+.huabox{
+	width:100%;
+	float: left;
+	margin: 0 auto;
+}
+.huabox h5{
+	border-radius:0.5rem;
+	color:#EE9A00;
+    float: left;
+    line-height: 1.3rem;
+    margin: 0.4rem 0 0 0;
+	width: 15.5%;
+	font-size:14px;
+	background-color:#F5DEB3;
+	
+}
+.notice_active{
+    float: left;
+    width: 80%;
+    height: 2rem;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+	font-size:14px;
+	color:black;
+}
+.notice_active_ch{
+	list-style-type: none;
+    line-height: 2rem;
+    overflow: hidden;
+}
+body{
+
+		}
+		.list{
+		}
+		.list li{
+			box-sizing: border-box;
+			height:73px;
+			width:100%;
+			border-bottom:1px solid #f0f0f0;
+			padding-left:80px;
+		}
+		.left{
+			float:left;
+			width:80px;
+			height:100%;
+			margin-left:-80px;
+		}
+		.logo_frame{
+			width:46px;
+			height:46px;
+			margin-top:17px;
+			margin-left:17px;
+			overflow: hidden;
+		}
+		.logo_frame img{
+			width:100%;
+		}
+		.info{
+			float:left;
+			width:100%;
+
+		}
+		.list_title{
+			box-sizing: border-box;
+			padding-right:10px;
+			margin-top:8px;
+			width:95%;
+			overflow:hidden;
+			font-size:15px;
+			line-height:40px;
+			font-family: '黑体';
+			min-height:40px;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space:nowrap;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		}
+		.list_date{
+			margin-top:0px;
+			font-size:14px;
+			color:#767676;
+		}
+		.empty{
+			width:100%;
+			height:30px;
+			line-height:20px;
+			font:14px;
+			text-align:center;
+			margin-top:10px;
+
+		}
+
+
+	/*新加空提示信息*/
+
+	.m-noRecord {
+    padding: .395rem 0 0;
+    text-align: center;
+}
+
+.m-noRecord .c-icon-noRecord {
+    background: url(../image/app/Browsehistory.png) no-repeat;
+    background-size: cover;
+		width: 5rem;
+    height: 4.6rem;
+    /* margin: .485rem auto 0; */
+    margin: 0 auto;
+	  margin-top: 50px;
+		opacity:0.4;    /*图片透明度*/
+		filter:alpha(opacity=40); /* 针对 IE8 以及更早的版本 */
+}
+.m-noRecord .c-info {,
+    color: #cecfce;
+    line-height: 4rem;
+    padding: .25rem 0;
+    font-size: .8rem;
+}
+
+    </style>
+</head>
+<body style="">
+
+			<div id="aui-slide" class="fx-box">
+				<div id="slidebox" class="aui-slide-wrap" >
+                <!--顶部横幅未加载完成时的提示-->
+                  <img id="bpic" src="../image/TV.png">
+				  
+                <!--顶部横幅未加载完成时的提示-->
+			    </div>
+				
+				<div class="aui-slide-page-wrap"><!--分页容器--></div>
+		  </div>
+			<div class="aui-nav-list-box"  > 
+			<ul>
+				<li class="aui-current"> 
+					<a href="#">直播线路①</a>
+				</li>
+				<li>
+					<a href="#">直播线路②</a>
+				</li>
+
+			</ul>
+		</div> 
+		
+		<div class="list-title" style="margin-bottom: 10px;">
+    <div class="list-title-l">
+      <span style="color:#7741fb;font-size: 0.7rem"><i class="iconfont icon-zuirehotchunse" style="color:#7741fb;font-size: 0.8rem"></i>热门平台</span>
+      <span id="lengthspan" style="color:#CCCCCC;font-size: 0.6rem"></span>
+    </div>
+    <div class="list-title-r">
+      <div class="aui-label aui-label-primary" style="font-size: 0.5rem">持续增加</div>
+    </div>
+  </div>
+ 
+		<div class="aui-nav-list-tab">
+		<div class="aui-nav-list-item" style="display:block">
+		<section class="aui-grid aui-margin-b-15" id="div_list">
+			<div class="bd-t"></div>
+			<div class="wrap">
+				<div class="game-page">
+					<div class="aui-grid aui-margin-b-hezi" id="liveList">
+						<ul>
+			<li class="aui-col-xs-3 pt-list" v-for="v in list"  @click="openWin(v. address,v.Number,v.xinimg,v.title)" class="weui-grid js_grid">
+			<div class="aui-grid aui-margin-b-hezi">
+				<center><img :src="v.xinimg" alt="" class="zhiboImg" style="border-radius: 300px;"></center>
+			</div>
+			<div class="aui-tm"><img src="../image/zhibo/tm.png" /></div>
+			<div class="text" style="color:#911fcd">{{v.title}}</div>
+			<div class="zb-box-b-r" style="color:#836294">在线主播:{{v.Number}}位</div>
+			</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		</div>
+		<div class="aui-nav-list-item" >
+		<section class="aui-grid aui-margin-b-15" id="zhibo2">
+			<div class="bd-t"></div>
+			<div class="wrap">
+				<div class="game-page">
+					<div class="aui-grid aui-margin-b-hezi" id="liveList">
+						<ul id="div_list1">
+			<li class="aui-col-xs-3 pt-list" v-for="v in list"  @click="openWin1(v. address,v.Number,v.xinimg,v.title)" class="weui-grid js_grid">
+			<div class="aui-grid aui-margin-b-hezi">
+			<center><img :src="v.xinimg" alt="" class="zhiboImg" style="border-radius: 300px;"></center>
+			</div>
+			<div class="aui-tm"><img src="../image/zhibo/tm.png" /></div>
+			<div class="text" style="color:#911fcd">{{v.title}}</div>
+			<div class="zb-box-b-r" style="color:#836294">在线主播:{{v.Number}}位</div>
+			</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>	
+		</div>
+		
+		
+		</div>
+
+	
+	
+</body>
+
+
+<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+ <script type="text/javascript">
+ $(function(){ 
+ $('.aui-nav-list-box ul li').click(function(){
+		 $(this).addClass('aui-current').siblings().removeClass('aui-current');
+		 $('.aui-nav-list-tab>div:eq('+$(this).index()+')').show().siblings().hide();
+	 }) 
+	
+ }); 
+ </script> 
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/auislide.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+	
+	
+		
+ var api_url = localStorage.getItem('api_url');
+	apiready = function(){
+	getBanner();
+	getList2();
+	 getList();
+			api.parseTapmode();
+			api.setCustomRefreshHeaderInfo({
+              bgColor : '#fff',
+          }, function() {
+              //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+				getBanner();		
+              setTimeout(function(){
+					api.refreshHeaderLoadDone()
+              }, 2000);
+          });
+	
+	}
+
+
+		
+ function getList(){
+	var div_list = new Vue({
+		  el: '#div_list',
+		  data: {list: []},
+		  mounted: function(){
+			  api.ajax({
+			   url: api_url+'/zhibo.php',
+				method: 'get',
+				data: {
+					values: {
+						lx: 'hqpt',
+						ys:1  
+					}
+				}
+		  },function(ret, err){
+			  if (ret) {
+				//console.log(JSON.stringify(ret.pingtai))
+				 div_list.list = ret.pingtai;
+			  }     
+		  });
+		  }
+	  });
+  }
+
+
+function getList2(){
+    var zhibo2 = new Vue({
+		  el: '#zhibo2',
+		  data: {list: []},
+		  mounted: function(){
+			  api.ajax({
+			   url: api_url+'/zhibo.php',
+				method: 'get',
+				data: {
+					values: {
+						lx: 'hqzb1',
+						ys:1  
+					}
+				}
+		  },function(ret, err){
+			  if (ret) {
+				//console.log(JSON.stringify(ret.pingtai))
+				 zhibo2.list = ret.pingtai;
+			  }     
+		  });
+		  }
+	  });
+  }
+
+
+
+		
+function getBanner(){
+  var bannerid = $api.byId('slidebox');
+  var bannertpl = $api.byId('bannertpl');
+  var ttus = $api.byId('ttu');
+  api.ajax({
+      url: api_url+'/App/App/lunbo.html',
+      method: 'get',
+  },function(ret, err){
+      if (ret) {
+		var html='';
+		
+		var banner = ret.zlun;
+		for(i in banner){
+			item = banner[i];    
+			html += "<div class='aui-slide-node bg-dark'  tapmode  onclick=\"openApp('" + item.link + "')\">";
+			html += '<img src="' +item.picname+ '" >';
+			html += '</div>';
+			}
+		bannerid.innerHTML = html;
+	    
+        banNer(); 
+      }        
+  });
+}	
+
+
+	
+	
+	function openWin1(add,num,img,name){
+    //网络连接判断S
+var time = localStorage.getItem('viptime');
+		var user_id = localStorage.getItem('user_id');
+		var username = localStorage.getItem('user_name');
+		var timestamp = Date.parse(new Date())/1000;
+		
+			if(user_id<1){
+			  api.toast({
+				  msg: '(ｷ｀ﾟДﾟ´)!!    你还没登陆！',
+				  duration: 2000
+			  });
+			  api.openWin({
+				  name: 'login',
+				  url: './login.html',
+				  delay: 2000
+			  });
+			  return;
+
+			} 
+				 if (time>timestamp) {
+									   
+
+						 var delay = 0;
+						 if(api.systemType != 'ios'){
+							 delay = 300;
+						 }
+						 api.openWin({
+							 name: 'bzhibo1_win',
+							 url: 'bzhibo1_win.html',
+							 bounces:false,
+							 delay: delay,
+							 slidBackEnabled:true,
+							 vScrollBarEnabled:false,
+							 pageParam:{add:add,num:num,img:img,name:name}
+						 });
+
+
+				}else if (time<timestamp){
+								  VipExpiredHint();   //会员过期弹窗提示
+							}
+
+
+ 
+    }
+	function openWin(add,num,img,name){
+    //网络连接判断S
+var time = localStorage.getItem('viptime');
+		var user_id = localStorage.getItem('user_id');
+		var username = localStorage.getItem('user_name');
+		var timestamp = Date.parse(new Date())/1000;
+		
+			if(user_id<1){
+			  api.toast({
+				  msg: '(ｷ｀ﾟДﾟ´)!!    你还没登陆！',
+				  duration: 2000
+			  });
+			  api.openWin({
+				  name: 'login',
+				  url: './login.html',
+				  delay: 2000
+			  });
+			  return;
+
+			} 
+			 if (time>timestamp) {
+								   
+
+			 var delay = 0;
+			 if(api.systemType != 'ios'){
+				 delay = 300;
+			 }
+			 api.openWin({
+				 name: 'bzhibo_win',
+				 url: 'bzhibo_win.html',
+				 bounces:false,
+				 delay: delay,
+				 slidBackEnabled:true,
+				 vScrollBarEnabled:false,
+				 pageParam:{add:add,num:num,img:img,name:name}
+			 });
+
+
+			}else if (time<timestamp){
+				 VipExpiredHint();   //会员过期弹窗提示
+			}
+
+
+ 
+    }
+
+	
+	
+</script>
+
+
+
+</html>

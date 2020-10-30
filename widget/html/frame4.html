@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/swiper.css"/>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html,body {
+      font-size: 20px;
+      background-color: rgb(244, 244, 244);
+    }
+    header {
+      width: 100%;
+      height: 8rem;
+      background: url(../image/my/bg.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+    .person-msg {
+      width: 94%;
+      /*height: 10rem;*/
+      background-color: white;
+      border-radius: 5px;
+      position: absolute;
+      left: 3%;
+      top: 6.5rem;
+    }
+    .touxiang {
+      width: 4.6rem;
+      height: 4.6rem;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: -36%;
+      transform: translate(-50%, 30%);
+    }
+    .touxiang img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .person {
+      width: 100%;
+      height: 30%;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .person p:nth-child(1){
+      height: 1.5rem;
+      line-height: 1.5rem;
+      color: rgb(234,156,90);
+      font-size: 20px;
+    }
+    .person p:nth-child(2){
+      height: 1.5rem;
+      line-height: 1.5rem;
+      color: rgb(160,160,160);
+      font-size: 14px;
+    }
+    .persons {
+      width: 100%;
+      height: 30%;
+      margin: 3rem auto 0;
+    }
+    .persons .name {
+      width: 100%;
+      display: flex;
+      color: rgb(234,156,90);
+      align-items: center;
+      justify-content: center;
+    }
+    .persons .name p:nth-child(1){
+      font-weight: bold;
+      font-size: 18px;
+      margin-right: 1rem;
+    }
+    .persons .name p:nth-child(2){
+      border: 1px solid rgb(234,156,90);
+      border-top-left-radius:11px;
+      border-bottom-right-radius:11px;
+      padding: 0 0.4rem;
+      font-size: 11px;
+    }
+    .persons .invite {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: rgb(234,156,90);
+      font-size: 16px;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .persons .invite p:nth-child(2) {
+      font-size: 11px;
+      margin-left: 1rem;
+      border: 1px solid rgb(234,156,90);
+      padding: 0 0.3rem;
+      border-radius: 3px;
+    }
+    .person-msg .line {
+      width: 100%;
+      height: 1px;
+      background-color: rgb(244, 244, 244);
+      margin-top: 1rem;
+    }
+    .person-msg-bottom {
+      width:100%;
+      height: 3.5rem;
+      margin: 1rem auto 0;
+      display: flex;
+    }
+    .person-msg-bottom-left {
+      width: 49%;
+      text-align: center;
+    }
+    .person-msg-bottom-left p:nth-child(1) {
+      font-size: 23px;;
+      color: rgb(234,156,90);
+    }
+    .person-msg-bottom-left p:nth-child(2) {
+      font-size: 15px;
+      color: #999999;
+    }
+    .middle-line {
+      width: 1px;
+      background-color:rgb(244, 244, 244);
+    }
+    .tabbar {
+      width: 94%;
+      height: 5rem;
+      margin: 9rem auto 0.5rem;
+      background-color: #fff;
+      display: flex;
+      border-radius: 5px;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .tabbar > div {
+      width: 2.6rem;
+      text-align: center;
+    }
+    .tabbar > div>img {
+      width: 100%;
+    }
+    .tabbar > div>p {
+      font-size: 13px;
+      color: #999999
+    }
+    .swiper {
+      width: 94%;
+      height: 4rem;
+      margin: 0 auto 0.5rem;
+    }
+    .swiper img {
+      width: 100%;
+      height: 100%
+    }
+    .big-bottom {
+      width: 94%;
+      margin: 0 auto;
+      background-color: white;
+    }
+    .big-bottom-box {
+      width: 100%;
+      height: 3.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      color: #999999;
+      border-bottom: 1px solid rgb(244, 244, 244);
+    }
+    .big-bottom-box .left {
+      display: flex;
+      align-items: center;
+    }
+    .big-bottom-box .left img{
+      width: 1.6rem;
+      height: 1.6rem;
+      margin: 0 0.5rem;
+    }  
+    .big-bottom-box .right {
+      width: 8px;
+      height: 14px;
+      margin-right: 0.5rem;
+    }
+    .big-bottom-box .right img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="my">
+  <header id="header"></header>
+  <section class="person-msg"  >
+    <div >
+      <div class="touxiang" >
+        <img src="../image/logo.png">
+      </div>
+      <!-- 未登录 -->
+      <!-- <div class="person" onClick="openWin('login')" id="wei"> -->
+        <!-- <p>看官大人请登录</p> -->
+        <!-- <p>签到、推广可增加更多金币哦</p> -->
+      <!-- </div> -->
+      <!-- 已登录 -->
+	   <div class="person" onClick="openWin('login')" id="wei" >
+        <p>看官大人请登录</p>
+        <p>签到、推广可增加更多金币哦</p>
+      </div>
+      <div class="persons" style="display:none;" id="deng">
+        <div class="name" id="q1">
+          <p id="name1"></p>
+          <p id="vip"></p>
+        </div>
+        <div class="invite" id="q2">
+          <p>邀请码：<span id="ym"></span></p>
+          <p onclick="copySet()">复制推广链接</p>
+        </div>
+      </div>
+	  
+    </div>
+    <div class="line"></div>
+    <div class="person-msg-bottom">
+      <div class="person-msg-bottom-left" onclick="openWin('jifen_win')">
+        <p id="nums">0</p>
+        <p>积分兑换 </p>
+      </div>
+      <div class="middle-line"></div>
+      <div class="person-msg-bottom-left" onClick="qiandao()">
+        <p id="nums1">0次</p>
+        <p>点击签到</p>
+      </div>
+    </div>
+  </section>
+  <section class="tabbar">
+    <div  onclick="openWin('share_win')">
+      <img src="../image/my/haoyou.png">
+      <p>我要推广</p>
+    </div>  
+    <div onclick="openWin('profit_win')" >
+      <img src="../image/my/tixian.png">
+      <p>推广提现</p>
+    </div>
+
+    <div  onclick="openWin('favor_win')">
+      <img src="../image/my/jilu.png">
+      <p>观看记录</p>
+    </div>
+    <div onclick="openWin('open_vip_win')" >
+      <img src="../image/my/vip.png">
+      <p>购买VIP</p>
+    </div>
+  </section>
+  <section id="swiper" class="swiper-container">
+    <div class="swiper-wrapper">
+      <div  class="swiper-slide">
+        <img  class="swiper-lazy" />
+      </div>
+    </div>
+    <div id="pagination" class="swiper-pagination"></div>
+  </section>
+  <section class="big-bottom">
+    <div class="big-bottom-box" onclick="openWin('message_win')">
+      <div class="left">
+        <img src="../image/my/xiaoxi.png">
+        <p>消息中心</p>
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+	<div class="big-bottom-box" onclick="openWin('shou_win')">
+      <div class="left">
+        <img src="../image/my/ic_my_favor.png">
+        <p>我的收藏</p>
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+    <div class="big-bottom-box" onClick="daili()">
+      <div class="left">
+        <img src="../image/my/shoucang.png">
+        <p>代理中心</p>  
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+    <div class="big-bottom-box" onclick="qun()">
+      <div class="left">
+        <img src="../image/my/qq.png">
+        <p>加入Q群</p>
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+    <div class="big-bottom-box"  onclick="openWin('help_win')">
+      <div class="left">
+        <img src="../image/my/wenti.png">
+        <p>常见问题</p>
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+    <div class="big-bottom-box" onClick="cleaCache()">
+      <div class="left">
+        <img src="../image/my/ic_my_setting.png">
+        <p>清理缓存</p>
+      </div>
+      <div class="right" ><img src="../image/my/right.png"></div>
+    </div>
+	<div class="big-bottom-box" onClick="exitLogin()">
+      <div class="left">
+        <img src="../image/my/yijian.png">
+        <p>注销登录</p>
+      </div>
+      <div class="right"><img src="../image/my/right.png"></div>
+    </div>
+  </section>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+ var api_url = localStorage.getItem('api_url');
+  apiready = function () {
+    api.parseTapmode();
+    //监听重新获取客服联系方式广播
+		api.addEventListener({
+          name: 'newLoingdata'
+      }, function(ret, err) {
+        if (ret) {
+
+          getData();
+          location.reload();
+        }
+      });
+	  getData();
+	   getCache();    //计算缓存
+	   api.setRefreshHeaderInfo({
+					visible: true,
+					loadingImg: 'widget://image/refresh.png',
+					bgColor: '#fff',
+					textColor: '#333',
+					textDown: '下拉刷新...',
+					textUp: '松开刷新...',
+					showTime: true
+				}, function(ret, err){
+				  if (err) {
+					api.toast({
+						msg: '加载数据失败',
+						duration: 2000,
+						location: 'middle'
+					});
+					api.refreshHeaderLoadDone();
+				  }else {
+				  getData();
+					api.toast({
+						msg: '刷新成功',
+						duration: 1000,
+						location: 'middle'
+					});
+					api.refreshHeaderLoadDone();
+				  }
+				});
+	}
+	function getData(){
+		var user_id = localStorage.getItem('user_id');
+		var user_name = localStorage.getItem('user_name');
+		var viptime = localStorage.getItem('viptime');
+		//var mama1 = localStorage.getItem('mama');
+		var money1 = localStorage.getItem('money');
+		var share = localStorage.getItem('share');
+		var num = localStorage.getItem('num');
+		var jifen = localStorage.getItem('jifen');
+		
+		var s1 = formatDateTime(viptime);
+        var timestamp = Date.parse(new Date())/1000;
+        var time = $api.byId('vip');
+		 var nums = $api.byId('nums');
+		 var nums1 = $api.byId('nums1');
+		if (viptime>timestamp) {
+			//hming.innerHTML = ' 超级 VIP';
+			vip.innerHTML = ' 将于 '+s1+' 到期';
+		}
+		if (viptime<timestamp) {
+			//hming.innerHTML = ' 已过期';
+			vip.innerHTML = 'VIP过期';
+	    	}
+		
+		if (localStorage.getItem('user_id')<1) {
+			document.getElementById("wei").style.display='block';
+			nums.innerHTML = '0';
+		}
+		if (localStorage.getItem('user_name')>1) {
+			document.getElementById("wei").style.display='none';
+			document.getElementById("deng").style.display='block';
+			name1.innerHTML = ''+user_name;
+			ym.innerHTML = ''+share;
+			nums.innerHTML = ''+jifen+'分';
+			nums1.innerHTML = ''+jifen+'分';
+		}
+	}
+	
+	  //加群
+	function qun(){
+	api.openWin({
+		  name: 'web_win',
+		  url: './web_win.html',
+		   pageParam:{ 
+		   title:'加入Q群',
+		   url:localStorage.getItem('num'),
+			}
+	  });
+	}
+	
+	function qiandao(){
+			if (localStorage.getItem('user_id')>0) {
+				var qdfbxx = Math.floor(Math.random()*30+1);
+				//alert('恭喜您获得'+qdfbxx+'积分');
+						 api.ajax({
+						 	 url: api_url+'/App/App/qiand.html',
+						 	method: 'get',
+						 	data: {
+						 			values: {
+						 					uid: localStorage.getItem('user_id'),
+						 				qdjbx: qdfbxx
+						 			}
+						 	}
+						 },function(ret, err){
+						 	if (ret) {
+						 		if (ret.code == 1) {
+									//var qdfbxx = Math.floor(Math.random()*30+5);
+									 getTime();
+									alert('恭喜您获得'+qdfbxx+'积分');
+									
+						 }else if (ret.code == 0) {
+						 			api.hideProgress();
+									alert('您今天已经签到过了！^-^');
+						 			}
+						 		}
+						 });
+			}else {
+				api.openWin({
+						name: 'login',
+						url: './login.html',
+						delay: 300,
+				});
+		   }
+
+		 }
+	
+	function cleaCache(){
+  api.clearCache(function() {
+      api.toast({
+          msg: '清除完成'
+      });
+      getCache();
+  });
+}
+////////////清楚缓存 方法  cleaCache   E   ////////////
+
+////////////计算缓存 方法  getCache   S   ////////////
+function getCache(){
+  api.getCacheSize(function(ret) {
+      var size = ret.size/1024/1024;
+      var mb = size.toFixed(2)
+      var cache = $api.byId('cache');
+      cache.innerHTML = mb+'MB';
+
+  });
+}
+	
+	 //退出
+	   function exitLogin(){
+		  api.sendEvent({
+			name: 'newLoingdata',
+			extra: {
+			}
+		  });
+		  localStorage.setItem('user_id','');
+		  localStorage.setItem('user_name','');
+		  localStorage.setItem('viptime','');
+		  api.toast({
+			  msg: ' 已安全退出',
+			  duration: 2000
+		  });
+		  api.openWin({
+		  });
+
+		}
+	//////////复制分享链接 //////////
+  function copySet(){
+   
+
+  var clipBoard = api.require('clipBoard');
+  clipBoard.set({
+      value: '【聚合影视APP】全网VIP视频免费看，高清无广告，一个APP看遍天下所有收费视频，最新活动：邀请好友加入可以奖励160元现金，并且可以当场到账，我已经到账了，特来分享，注册地址：'+localStorage.getItem('xiazai')
+  }, function(ret, err) {
+      if (ret) {
+        api.toast({
+            msg: '已复制到剪切板',
+            duration: 4000
+        });
+
+
+
+      } else {
+
+      }
+  });
+
+
+  }
+ //获取数据
+function daili(){
+  var user_id = localStorage.getItem('user_id');
+  var user_name = localStorage.getItem('user_name');
+
+  if (localStorage.getItem('user_id')<1) {
+//如果没登陆
+
+api.toast({
+msg: '(ｷ｀ﾟДﾟ´)!!    你还没登陆！',
+duration: 2000
+});
+
+
+ api.openWin({
+     name: 'login',
+     url: './login.html',
+     delay: 2000
+ });
+ return;
+
+  }
+  //普通用户登录检测
+  if (localStorage.getItem('user_name')>1 ) {
+
+
+     api.ajax({
+		url: api_url+'/App/Index/veify.html',
+         method: 'POST',
+         data: {
+             values: {
+                 name: localStorage.getItem('user_name'),
+                 pass: localStorage.getItem('mim'),
+             }
+         }
+     },function(ret, err){
+         if (ret) {
+           if (ret.code == 0) {
+  
+NoAgencyAuthority()
+
+             return;
+           }else if (ret.code == 1) {
+       /*       alert('登录成功');
+             原弹窗提示  */
+             api.toast({
+                 msg: '验证成功 正在登录',
+                 duration: 5000
+             });
+
+var delay = 0;
+			 if(api.systemType != 'ios'){
+				 delay = 300;
+			 }
+			 api.openWin({
+				 name: 'daili',
+				 url: './daili.html',
+				 delay: 800,
+				 pageParam:{url: api_url+'/App/Index/index.html'},
+				 bgColor: '#000000'
+			 });
+               
+
+   
+           }
+         } else {
+           api.hideProgress();
+         /*   alert('网络错误！');
+               原弹窗提示*/
+               api.toast({
+                   msg: '(ｷ｀ﾟДﾟ´)!!  网络错误 请检查！',
+                   duration: 5000
+               });
+
+           //alert( JSON.stringify( err ) );
+           return;
+         }
+     });
+
+
+  }
+
+
+
+} 
+
+
+function NoAgencyAuthority() {
+
+                  /*理登录无权限弹窗提示*/
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.alert({
+                      tapClose: true,  //描述：（可选项）是否点击遮罩层关闭该对话框  默认值：false
+                      texts: {
+                          content: '没有权限',
+                          leftBtnTitle: '以后再说',
+                          rightBtnTitle: '升级代理'
+                      },
+                      styles:{
+                bg: '#fff',            //（可选项）字符串类型；对话框整体背景配置，支持#、rgb、rgba、img；默认：#fff
+                corner: 10,             //（可选项）数字类型；对话框背景圆角大小；默认：2
+                w: 300,                //（可选项）数字类型；对话框的宽；默认：300
+                title:{                //（可选项）JSON对象；弹窗标题栏样式配置，不传则不显示标题区域
+                    marginT: 20,       //（可选项）数字类型；标题栏与对话框顶端间距；默认：20
+                    icon: 'widget://image/app/dialogBoxTisi.jpg',          //（可选项）字符串类型；标题前面的图标路径，要求本地路径（widget://、fs://）；图片为正方形的，如：50*50、100*100，建议开发者传大小合适的图片以适配高分辨率手机屏幕，不传则不显示
+                    iconSize: 80,      //（可选项）数字类型；icon 图标边长大小,若 icon 不存在则此参数无效；默认：24
+                    titleSize: 14,     //（可选项）数字类型；标题字体大小；默认：14
+                    titleColor: '#000' //（可选项）字符串类型；标题字体颜色，支持#、rgb、rgba；默认：#fff
+                },
+                content:{              //（可选项）JSON 对象；文本内容配置，若不传则不显示该区域
+                    marginT: 20,       //（可选项）数字类型；内容文本顶端与标题栏底端的距离，如果标题栏不存在，则是到窗口顶端的距离；默认：20
+                    marginB: 40,       //（可选项）数字类型；内容文本底端与 left/right 顶端的距离，如果 left/right 都不存在，则是到对话框底端的距离；默认：20
+                    color: '#3d3d3d',     //（可选项）字符串类型；内容文本字体颜色，支持 rgb、rgba、#；默认：#eee
+                    size: 12           //（可选项）数字类型：内容文本字体大小；默认：123d3d3d
+                },
+                left:{                 //（可选项）JSON 对象；左边按钮样式配置，不传则不显示左边按钮
+                    marginB: 30,        //（可选项）数字类型；左边按钮的下边距；默认：7
+                    marginL: 30,       //（可选项）数字类型；左边按钮的左边距；默认：20
+                    w: 100,            //（可选项）数字类型；左边按钮的宽；默认：130
+                    h: 40,             //（可选项）数字类型；左边按钮的高；默认：35
+                    corner: 10,         //（可选项）数字类型；左边按钮圆角半径；默认：0.0
+                    bg: '#3d3d3d',        //（可选项）字符串类型；左边按钮的背景，支持rgb、rgba、#、img；默认：'#e0e'
+                    color: '#fff',  //（可选项）字符串类型；左边按钮标题字体颜色，支持rgb，rgba、#；默认：'#007FFF'
+                    size: 12           //（可选项）数字类型；左边按钮标题字体大小；默认：12
+                },
+                right: {               //（可选项）JSON 对象；右边按钮样式配置，不传则不显示右边按钮
+                    marginB: 30,        //（可选项）数字类型；右边按钮的下边距；默认：7
+                    marginL: 40,      //（可选项）数字类型；右边按钮左边距；默认：10
+                    w: 100,            //（可选项）数字类型；右边按钮的宽；默认：130
+                    h: 40,             //（可选项）数字类型；右边按钮的高；默认：35
+                    corner: 10,         //（可选项）数字类型；右边按钮圆角半径；默认：0.0
+                    bg: '#282828',        //（可选项）字符串类型；右边按钮的背景，支持rgb、rgba、#、img；默认：'#e0e'
+                    color: '#fff',  //（可选项）字符串类型；右边按钮标题字体颜色，支持rgb、rgba、#；默认：'#007FFF'
+                    size: 12           //（可选项）数字类型；右边按钮标题字体大小；默认：12
+                }
+            }
+                  }, function(ret) {
+                      if (ret.eventType == 'left') {
+                          var dialogBox = api.require('dialogBox');
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      }else if (ret.eventType == 'right') {
+					  var xurl = localStorage.getItem('daili')+'&name=尊贵代理&uid='+localStorage.getItem('user_id');
+                       api.openWin({
+						name: 'pays',
+						url: './pays.html',
+						pageParam: {
+							url: api_url+'/dailipay/?fee='+xurl
+						}
+					});
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                      }
+                  });
+                  /*    理登录无权限弹窗提示结束    */
+
+}
+
+
+//重新获取到期时间
+  function getTime(){
+    api.ajax({
+        url: api_url+'/App/App/shuaxin.html',
+        method: 'get',
+        data: {
+            values: {
+                uid: localStorage.getItem('user_id'),
+               
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+         
+              localStorage.setItem('jifen',ret.jifen);
+              api.sendEvent({
+                name: 'newLoingdata',
+                extra: {
+                }
+              });
+          
+        } else {
+          api.hideProgress();
+          alert('网络错误！');
+        }
+    });
+  }
+
+
+
+</script>
+</html>

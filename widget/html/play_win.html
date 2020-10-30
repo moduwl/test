@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css1/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css1/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css1/auislide.css" />
+    <link rel="stylesheet" type="text/css" href="../css1/style.css"/>
+	<style type="text/css">
+       html,body{background-color:#000;}
+    </style>
+</head>
+
+<body>
+
+
+
+		<header class="aui-navBar aui-navBar-fixed" style="background:#323232;position: relative;padding-top:25px;" id="header">
+                    <a  tapmode onclick="closeWin()" class="aui-navBar-item"  tyle="color: #c4c4c4;"  >
+                  <i class="icon icon-back-b"></i>
+
+                    </a>
+                    <div class="aui-center">
+                        <span class="aui-center-title"   id="title" style="color: #c4c4c4;" >  正在播放 </span>
+                    </div>
+            </header>
+
+ 
+</body>
+<script type="text/javascript" src="../script/api.js" ></script>
+<script type="text/javascript" src="../script/date.min.js"></script>
+  <script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript">
+
+	    var api_url = localStorage.getItem('api_url');
+    apiready = function(){
+
+      api.parseTapmode();
+      var header = $api.byId('aui-header');
+      $api.fixStatusBar(header);
+      var headerPos = $api.offset(header);
+      var body_h = $api.offset($api.dom('body')).h;
+
+      api.addEventListener({
+          name: 'keyback'
+      }, function(ret, err) {
+        api.setScreenOrientation({
+            orientation: 'portrait_up'
+        });
+        api.closeWin();
+      });
+
+      var browser = api.require('webBrowser');
+      browser.openView({
+          url: api.pageParam.url,
+          rect: {
+              x: 0,
+              y: 70,
+              w: 'auto',
+              h: 'auto',
+          }
+      }, function(ret, err) {
+
+          switch (ret.state) {
+              case 0:
+                  break;
+              case 1:
+                  break;
+              case 2:
+                  break;
+              case 3:
+                  break;
+              case 4:
+                  break;
+              default:
+                  break;
+          };
+
+
+      });
+
+		if(api.pageParam.needRecordHistory){
+			record_play_history();
+		}else{
+
+		}
+    }
+
+   
+
+    function closeWin(){
+      api.setScreenOrientation({
+          orientation: 'portrait_up'
+      });
+      api.closeWin();
+    }
+
+   
+
+
+    
+
+	function record_play_history(){
+	  //alert(api.pageParam.title);
+	  api.ajax({
+	      url: api_url+'/App/App/jilu.html',
+		  method: 'get',
+	      data:{
+	      	values:{
+	      		uid: localStorage.getItem('user_id'),
+	      		title: api.pageParam.title,
+	      		url: api.pageParam.srcUrl,
+	      		//time: new Date().format('yyyy-MM-dd hh:mm:ss'),
+	      		//ping: getPing(api.pageParam.srcUrl)
+	      	}
+	      }
+      },function(ret,err){
+      });
+	}
+
+	
+
+
+</script>
+
+
+
+</html>
